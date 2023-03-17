@@ -1,12 +1,14 @@
 import searchTheRealReal from './therealreal';
 import searchRebag from "./rebag";
 import db from './db';
+import vestiaireCollective from "./vestiairecollective";
 
 (async () => {
   const searchTerm: string = "Speedy 30";
   const items = [
       ...await searchTheRealReal(searchTerm),
       ...await searchRebag(searchTerm),
+      ...await vestiaireCollective(searchTerm)
   ];
   console.log(items);
   await db.$transaction(items
