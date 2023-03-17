@@ -18,7 +18,7 @@ export default async function searchTheRealReal(string: string) {
             name: $('.product-card__description', this).text(),
             price: +$('.product-card__msrp', this).text()?.match(/\$([\d,]+\.\d{2})/)?.[1]?.replace(/,/g, ''),
             link: 'https://www.therealreal.com' + $(this).attr('href'),
-            id: $(this).attr('href')?.split('-')?.pop()
+            id: 'therealreal' + $(this).attr('href')?.split('-')?.pop()
         }
     }).get();
     await browser.close();
