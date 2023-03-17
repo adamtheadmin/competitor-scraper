@@ -1,12 +1,17 @@
 import searchTheRealReal from './therealreal';
+import searchRebag from "./rebag";
 import db from './db';
 
 (async () => {
-  const items = await searchTheRealReal("LOUIS VUITTON Damier Ebene Speedy 30");
+  const searchTerm: string = "Speedy 30";
+  const items = [
+      ...await searchTheRealReal(searchTerm),
+      ...await searchRebag(searchTerm),
+  ];
   console.log(items);
   await db.$transaction(items
       .filter(item => !!item.id)
-      .filter(item => !isNaN(item.price))
+      .filter(item => item.price)
       .map((item) => {
         return db.product.upsert({
           where: {remoteId: item.id},
